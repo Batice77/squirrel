@@ -124,6 +124,11 @@ SQInteger sq_getversion()
     return SQUIRREL_VERSION_NUMBER;
 }
 
+void sq_stopvm(HSQUIRRELVM v)
+{
+	v->stopVM = true;
+}
+
 SQRESULT sq_compile(HSQUIRRELVM v,SQLEXREADFUNC read,SQUserPointer p,const SQChar *sourcename,SQBool raiseerror)
 {
     SQObjectPtr o;

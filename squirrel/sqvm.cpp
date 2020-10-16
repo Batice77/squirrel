@@ -123,6 +123,7 @@ SQVM::SQVM(SQSharedState *ss)
     _openouters = NULL;
     ci = NULL;
     _releasehook = NULL;
+	stopVM = false;
     INIT_CHAIN();ADD_TO_CHAIN(&_ss(this)->_gc_chain,this);
 }
 
@@ -704,6 +705,7 @@ exception_restore:
     {
         for(;;)
         {
+			if (stopVM) SQ_THROW();
             const SQInstruction &_i_ = *ci->_ip++;
             //dumpstack(_stackbase);
             //scprintf("\n[%d] %s %d %d %d %d\n",ci->_ip-_closure(ci->_closure)->_function->_instructions,g_InstrDesc[_i_.op].name,arg0,arg1,arg2,arg3);
